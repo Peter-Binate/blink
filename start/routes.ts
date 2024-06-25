@@ -53,8 +53,7 @@ router
 // Route pour gérer les sessions de sports
 router
   .group(() => {
-    router.post('search', [SportSessionsController, 'filterSessions']) // S'arreter ici
-    router.get('last-sport-session', [SportSessionsController, 'getLastCreatedSession'])
+    router.post('search', [SportSessionsController, 'filterSessions'])
     router.post('create', [SportSessionsController, 'store'])
     router.put('/update', [SportSessionsController, 'update'])
     router.delete('delete', [SportSessionsController, 'destroy'])
@@ -62,20 +61,9 @@ router
   .use(middleware.auth())
   .prefix('api/sport-session')
 
-router
-  .group(() => {
-    router.post('join', [HandleSessionMembersController, 'joinSession'])
-    router.post('accept-member', [HandleSessionMembersController, 'acceptNewMember'])
-    router.delete('delete-user', [HandleSessionMembersController, 'deleteUser'])
-    router.delete('leave', [HandleSessionMembersController, 'leave'])
-  })
-  .use(middleware.auth())
-  .prefix('api/sport-session')
-
 // Route pour gérer la liste d'amis
 router
   .group(() => {
-    router.get('all-friends', [FriendshipsController, 'getAllFriends'])
     router.get('received-requests', [FriendshipsController, 'getReceivedFriendRequests'])
     router.post('send-request/', [FriendshipsController, 'friendshipRequest'])
     router.post('accept-friend/', [FriendshipsController, 'acceptFriendRequest'])
